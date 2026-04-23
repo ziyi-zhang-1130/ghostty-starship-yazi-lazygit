@@ -9,7 +9,7 @@
 [![installer brew](https://img.shields.io/badge/installer-brew-fbb040?style=for-the-badge&logo=homebrew&logoColor=white)](https://brew.sh)
 [![theme Catppuccin](https://img.shields.io/badge/theme-Catppuccin_Mocha-f5c2e7?style=for-the-badge)](https://catppuccin.com)
 [![font Maple Mono](https://img.shields.io/badge/font-Maple_Mono_NF_CN-9cdcfe?style=for-the-badge)](https://github.com/subframe7536/maple-font)
-[![agent executable](https://img.shields.io/badge/runbook-agent--executable-cba6f7?style=for-the-badge)](./install.md)
+[![agent executable](https://img.shields.io/badge/runbook-agent--executable-cba6f7?style=for-the-badge)](./INSTALL.md)
 
 </div>
 
@@ -19,7 +19,7 @@
 
 Claude Code runs in your terminal. If the terminal is sluggish, the prompt is noisy, and switching between edits, diffs, and files requires three apps, your flow state dies before the first tool use.
 
-This repo is one runbook ([`install.md`](./install.md)) that installs a cohesive, opinionated stack:
+This repo is one runbook ([`INSTALL.md`](./INSTALL.md)) that installs a cohesive, opinionated stack:
 
 - **[Ghostty](https://ghostty.org)** — GPU-accelerated terminal. Smooth while Claude streams tokens. Quake-style dropdown on `ctrl+backtick`, splits with `cmd+d`, transparent blur titlebar.
 - **[Starship](https://starship.rs)** — prompt showing git state, language, and context at a glance — so you always know what Claude is about to operate on.
@@ -60,17 +60,13 @@ All wired to **Catppuccin Mocha** and **Maple Mono NF CN** (ligatures, Nerd Font
 
 ## install
 
-The whole setup is one file: [`install.md`](./install.md).
-
-**The fun part:** `install.md` is written for an AI agent. Hand it to Claude Code itself:
+Hand the following instruction to your AI coding agent:
 
 ```
-> follow install.md on my machine, halt if any verification fails
+Fetch and follow instructions from https://raw.githubusercontent.com/ziyi-zhang-1130/ghostty-starship-yazi-lazygit/refs/heads/main/INSTALL.md, halt if any verification fails.
 ```
 
-...and it'll install every tool, write every config, and self-verify at each step.
-
-Prefer the manual path? Every shell block is idempotent — open `install.md` and run them top to bottom.
+The runbook is idempotent, so manual execution is also supported: open [`INSTALL.md`](./INSTALL.md) and run each shell block top to bottom.
 
 ### prerequisites
 
@@ -80,7 +76,7 @@ Prefer the manual path? Every shell block is idempotent — open `install.md` an
 
 ### end-to-end smoke test
 
-After install, this must exit 0 (the canonical version lives at the bottom of `install.md`):
+After install, this must exit 0 (the canonical version lives at the bottom of `INSTALL.md`):
 
 ```sh
 set -e
@@ -117,7 +113,7 @@ echo "OK"
 
 ## customize
 
-The configs in `install.md` are opinionated but editable. The important rule: if you modify a managed config file, **keep the managed marker on the first line** (`# managed-by: ~/install.md`) — otherwise the runbook will refuse to overwrite it on the next pass.
+The configs in `INSTALL.md` are opinionated but editable. The important rule: if you modify a managed config file, **keep the managed marker on the first line** (`# managed-by: ~/install.md`) — otherwise the runbook will refuse to overwrite it on the next pass.
 
 See [`CLAUDE.md`](./CLAUDE.md) for the runbook's edit invariants and the three file-op primitives (CREATE, OVERWRITE-IF-MANAGED, APPEND-IF-MISSING).
 
