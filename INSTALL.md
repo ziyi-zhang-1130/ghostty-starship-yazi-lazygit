@@ -200,13 +200,16 @@ test -f ~/.config/starship.toml || starship preset catppuccin-powerline -o ~/.co
 
 - **Operation:** APPEND-IF-MISSING
 - **Marker:** `# >>> starship init >>>`
+- Initializes starship only under Ghostty (which ships the required Nerd Font for the Catppuccin Powerline preset); other terminals fall back to the plain zsh prompt so missing glyphs don't render as tofu.
 
 ```sh
 if ! grep -qF '# >>> starship init >>>' ~/.zshrc; then
   cat >> ~/.zshrc <<'STARSHIP_EOF'
 
 # >>> starship init >>>
-eval "$(starship init zsh)"
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+	eval "$(starship init zsh)"
+fi
 # <<< starship init <<<
 STARSHIP_EOF
 fi
@@ -290,10 +293,29 @@ command -v lazygit >/dev/null
 ```
 
 ### Configure
-None at this stage.
+
+**Shell alias** — `~/.zshrc`
+
+- **Operation:** APPEND-IF-MISSING
+- **Marker:** `# >>> lazygit alias >>>`
+- Adds an `lg` alias for `lazygit`.
+
+```sh
+if ! grep -qF '# >>> lazygit alias >>>' ~/.zshrc; then
+  cat >> ~/.zshrc <<'LAZYGIT_EOF'
+
+# >>> lazygit alias >>>
+alias lg='lazygit'
+# <<< lazygit alias <<<
+LAZYGIT_EOF
+fi
+```
 
 ### Verify config
-N/A.
+
+```sh
+grep -qF '# >>> lazygit alias >>>' ~/.zshrc
+```
 
 ---
 
@@ -311,6 +333,7 @@ grep -qF '# >>> starship init >>>' ~/.zshrc
 command -v yazi >/dev/null && command -v ya >/dev/null
 grep -qF '# >>> yazi cwd helper >>>' ~/.zshrc
 command -v lazygit >/dev/null
+grep -qF '# >>> lazygit alias >>>' ~/.zshrc
 echo "OK: all four tools installed and configured"
 ```
 
