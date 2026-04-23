@@ -113,7 +113,7 @@ echo "OK"
 
 ## customize
 
-The configs in `INSTALL.md` are opinionated but editable. The important rule: if you modify a managed config file, **keep the managed marker on the first line** (`# managed-by: ~/install.md`) — otherwise the runbook will refuse to overwrite it on the next pass.
+The configs in `INSTALL.md` are opinionated but editable. Re-running the runbook won't overwrite files it already wrote — `CREATE` files (Ghostty, Starship) are skipped when present, and `APPEND-IF-MISSING` blocks (the `starship init` and `y` helper in `~/.zshrc`) are skipped when their marker is already in place. Edit freely; to let the runbook reinstall a file, delete it or remove the marker block.
 
 See [`CLAUDE.md`](./CLAUDE.md) for the runbook's edit invariants and the three file-op primitives (CREATE, OVERWRITE-IF-MANAGED, APPEND-IF-MISSING).
 

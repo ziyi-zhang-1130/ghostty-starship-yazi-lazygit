@@ -61,8 +61,7 @@ test -d "/Applications/Ghostty.app" || { echo "ghostty not installed"; exit 1; }
 ### Configure
 
 - **File:** `~/.config/ghostty/config`
-- **Operation:** OVERWRITE-IF-MANAGED
-- **Managed marker (first line):** `# managed-by: ~/install.md`
+- **Operation:** CREATE (skip if already present)
 - **Upstream source (for humans):** https://gist.github.com/zhangchitc/7dead7c1b517390e061e07759ed80277
 
 Apply with:
@@ -70,9 +69,9 @@ Apply with:
 ```sh
 mkdir -p ~/.config/ghostty
 CONFIG=~/.config/ghostty/config
-if [ -f "$CONFIG" ] && ! head -n1 "$CONFIG" | grep -qxF '# managed-by: ~/install.md'; then
-  echo "refusing to overwrite $CONFIG — first line is not the managed marker"; exit 1
-fi
+if [ -f "$CONFIG" ]; then
+  echo "ghostty config already exists at $CONFIG — skipping"
+else
 cat > "$CONFIG" <<'GHOSTTY_CONFIG_EOF'
 # managed-by: ~/install.md
 # ============================================
@@ -157,12 +156,13 @@ keybind = cmd+shift+comma=reload_config
 # Generous scrollback (25MB)
 scrollback-limit = 25000000
 GHOSTTY_CONFIG_EOF
+fi
 ```
 
 ### Verify config
 
 ```sh
-head -n1 ~/.config/ghostty/config | grep -qxF '# managed-by: ~/install.md'
+test -f ~/.config/ghostty/config
 ```
 
 ---
@@ -304,7 +304,7 @@ After completing all sections, the following block must exit 0:
 ```sh
 set -e
 test -d /Applications/Ghostty.app
-head -n1 ~/.config/ghostty/config | grep -qxF '# managed-by: ~/install.md'
+test -f ~/.config/ghostty/config
 command -v starship >/dev/null
 test -f ~/.config/starship.toml
 grep -qF '# >>> starship init >>>' ~/.zshrc
