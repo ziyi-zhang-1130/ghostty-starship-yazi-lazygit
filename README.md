@@ -2,7 +2,7 @@
 
 # ghostty · starship · yazi · lazygit
 
-### an all-in-one macOS terminal toolchain for vibe coding with Claude Code
+### A macOS terminal toolchain for vibe coding with Claude Code
 
 [![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white)](https://www.apple.com/macos/)
 [![shell zsh](https://img.shields.io/badge/shell-zsh-1a1a1a?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.zsh.org/)
@@ -11,20 +11,24 @@
 [![font Maple Mono](https://img.shields.io/badge/font-Maple_Mono_NF_CN-9cdcfe?style=for-the-badge)](https://github.com/subframe7536/maple-font)
 [![agent executable](https://img.shields.io/badge/runbook-agent--executable-cba6f7?style=for-the-badge)](./INSTALL.md)
 
+<br />
+
+<img src="./assets/hero.png" alt="Ghostty with Claude Code on the left, yazi and lazygit split on the right — all four tools in one frame, Catppuccin Mocha, Maple Mono NF CN" width="100%" />
+
 </div>
 
 ---
 
-## why this combo
+## Why
 
-Claude Code runs in your terminal. If the terminal is sluggish, the prompt is noisy, and switching between edits, diffs, and files requires three apps, your flow state dies before the first tool use.
+Claude Code lives in your terminal. If the terminal is sluggish, the prompt is noisy, and reviewing a diff means leaving the shell for a GUI, your flow state dies before the first tool use.
 
-This repo is one runbook ([`INSTALL.md`](./INSTALL.md)) that installs a cohesive, opinionated stack:
+This repo is one runbook — [`INSTALL.md`](./INSTALL.md) — that installs a cohesive, opinionated stack:
 
-- **[Ghostty](https://ghostty.org)** — GPU-accelerated terminal. Smooth while Claude streams tokens. Quake-style dropdown on `ctrl+backtick`, splits with `cmd+d`, transparent blur titlebar.
-- **[Starship](https://starship.rs)** — prompt showing git state, language, and context at a glance — so you always know what Claude is about to operate on.
+- **[Ghostty](https://ghostty.org)** — GPU-accelerated terminal. Smooth while Claude streams tokens. Quake-style dropdown on <kbd>ctrl</kbd>+<kbd>`</kbd>, splits on <kbd>cmd</kbd>+<kbd>d</kbd>, transparent blurred titlebar.
+- **[Starship](https://starship.rs)** — prompt showing git state, language, and context at a glance, so you always know what Claude is about to operate on.
 - **[Yazi](https://yazi-rs.github.io)** — async file manager with image and PDF previews. The bundled `y` shell function `cd`s your parent shell to wherever you exited.
-- **[Lazygit](https://github.com/jesseduffield/lazygit)** — review every diff Claude makes before it hits `main`. Stage hunks, amend, rebase — all keyboard.
+- **[Lazygit](https://github.com/jesseduffield/lazygit)** — review every diff Claude writes before it hits `main`. Stage hunks, amend, rebase, resolve conflicts — all keyboard.
 
 Plus the modern CLI bedrock — `fd`, `ripgrep`, `fzf`, `zoxide`, `jq`, `ffmpeg`, `poppler`, `imagemagick`, `sevenzip`, `resvg` — for search, preview, and transformation.
 
@@ -32,51 +36,19 @@ All wired to **Catppuccin Mocha** and **Maple Mono NF CN** (ligatures, Nerd Font
 
 ---
 
-## what it looks like
+## Install
 
-```
-╭─ ghostty ── ~/code/myapp ─────────────────────────────────────╮
-│                                                                │
-│   ~/code/myapp   main [!]   via  v20.11.0                 │
-│  ❯ claude                                                      │
-│                                                                │
-│  ● Welcome to Claude Code!                                     │
-│    /help for help · /status for your setup                     │
-│                                                                │
-│  > refactor the auth middleware to use jose                    │
-│                                                                │
-│  ⏺ Read(src/middleware/auth.ts)                                │
-│  ⏺ Edit(src/middleware/auth.ts)                                │
-│     └─  +34 / -18                                              │
-│  ⏺ Bash(pnpm typecheck)                                        │
-│     └─ ✓ no errors                                             │
-│                                                                │
-╰────────────────────────────────────────────────────────────────╯
-```
-
-> Real screenshots render far better than ASCII — drop your own here once the font and blur kick in.
-
----
-
-## install
-
-Hand the following instruction to your AI coding agent:
+Hand this to your coding agent:
 
 ```
 Fetch and follow instructions from https://raw.githubusercontent.com/ziyi-zhang-1130/ghostty-starship-yazi-lazygit/refs/heads/main/INSTALL.md, halt if any verification fails.
 ```
 
-The runbook is idempotent, so manual execution is also supported: open [`INSTALL.md`](./INSTALL.md) and run each shell block top to bottom.
+The runbook is idempotent, so manual execution works too — open [`INSTALL.md`](./INSTALL.md) and run each shell block top to bottom.
 
-### prerequisites
+**Prerequisites:** macOS · [Homebrew](https://brew.sh) · zsh (default on modern macOS)
 
-- macOS
-- [Homebrew](https://brew.sh)
-- zsh (default on modern macOS)
-
-### end-to-end smoke test
-
-After install, this must exit 0 (the canonical version lives at the bottom of `INSTALL.md`):
+**Smoke test** — after install, this must exit 0:
 
 ```sh
 set -e
@@ -87,33 +59,35 @@ command -v lazygit >/dev/null
 echo "OK"
 ```
 
+The canonical version lives at the bottom of `INSTALL.md`.
+
 ---
 
-## the stack at a glance
+## The stack at a glance
 
 | tool | role | why it's in here |
 |------|------|------------------|
-| **Ghostty** | terminal emulator | GPU rendering, transparent titlebar, Quake-mode dropdown, native macOS |
+| **Ghostty** | terminal | GPU-rendered, transparent titlebar, Quake-mode dropdown, native macOS |
 | **Starship** | prompt | Rust-fast, context-rich, `catppuccin-powerline` preset out of the box |
-| **Yazi** | file manager | async, image/PDF previews, `y` shell integration for seamless `cd` |
+| **Yazi** | file manager | async, image & PDF previews, `y` shell helper for seamless `cd` |
 | **Lazygit** | git TUI | stage hunks, amend, rebase, resolve conflicts — the interface `git` should've shipped with |
 
 ---
 
-## why it pairs well with Claude Code
+## Why it pairs with Claude Code
 
-- **Fast terminal → fast feedback.** When Claude streams a long diff or runs a noisy build, Ghostty doesn't choke — you stay in the loop.
-- **Ambient context.** Starship's git/language segments mean you always know which branch Claude is editing and whether there are uncommitted changes before you say "ship it".
+- **Fast terminal → fast feedback.** When Claude streams a long diff or runs a noisy build, Ghostty doesn't choke. You stay in the loop.
+- **Ambient context.** Starship's git and language segments mean you always know which branch Claude is editing and whether there are uncommitted changes before you say "ship it."
 - **Agentic review surface.** Claude writes code; `lazygit` is where you read it. Hunk-level staging catches the occasional overreach before it commits.
-- **File flow.** `yazi` + `zoxide` + `fzf` make jumping between the files Claude is touching near-zero-cost.
-- **Long-session ergonomics.** Catppuccin Mocha + Maple Mono is a dark theme and font pairing you can stare at for hours without flinching.
-- **Self-hosting install.** The install guide is itself agent-executable — your coding agent sets up its own environment. Meta, but it actually works.
+- **File flow.** `yazi` + `zoxide` + `fzf` make jumping to whatever Claude is touching near-zero-cost.
+- **Long-session ergonomics.** Catppuccin Mocha + Maple Mono is a theme and font pairing you can stare at for hours without flinching.
+- **Self-hosting install.** The install guide is itself agent-executable — your coding agent sets up its own environment. Meta, but it works.
 
 ---
 
-## customize
+## Customize
 
-The configs in `INSTALL.md` are opinionated but editable. Re-running the runbook won't overwrite files it already wrote — `CREATE` files (Ghostty, Starship) are skipped when present, and `APPEND-IF-MISSING` blocks (the `starship init` hook, `y` helper, and `lg` alias in `~/.zshrc`) are skipped when their marker is already in place. Edit freely; to let the runbook reinstall a file, delete it or remove the marker block.
+The configs in `INSTALL.md` are opinionated but editable. Re-running the runbook won't clobber files it already wrote — `CREATE` files (Ghostty, Starship) are skipped when present, and `APPEND-IF-MISSING` blocks (the `starship init` hook, `y` helper, and `lg` alias in `~/.zshrc`) are skipped when their marker is already in place. Edit freely; to let the runbook reinstall a file, delete it or remove the marker block.
 
 See [`CLAUDE.md`](./CLAUDE.md) for the runbook's edit invariants and the three file-op primitives (CREATE, OVERWRITE-IF-MANAGED, APPEND-IF-MISSING).
 
